@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const TaskList = ({taskList}) => {
+export const TaskList = ({taskList, handleOnDeleteTaskList, markAsNotToDo}) => {
 console.log(taskList)
 
   return (
@@ -19,10 +19,10 @@ console.log(taskList)
                     </td>
                     <td>{item.hr}hrs</td>
                     <td class="text-end">
-                        <button class="btn btn-danger btn-sm" onclick="deleteItem(${i})">
+                        <button class="btn btn-danger btn-sm" onClick={()=>handleOnDeleteTaskList(i)}>
                           <i class="fa-solid fa-trash" title="Delete"></i>
                         </button>
-                        <button class="btn btn-sm btn-warning" onclick="markAsNotToDo(${i})">
+                        <button class="btn btn-sm btn-warning" onClick={()=>markAsNotToDo(i)}>
                           <i class="fa-solid fa-arrow-right" title="Mark as bad list"></i>
                         </button>
                     </td>

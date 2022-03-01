@@ -10,14 +10,56 @@ import { TotalHours } from './components/TotalHours';
 function App() {
   
   const [taskList, setTaskList] = useState([]);
+
+  const [badList, setBadList] = useState([]);
   
 const addNewTask = newTask => {
   setTaskList([...taskList, newTask]);
+}
+// delete the task item from taskList
+const handleOnDeleteTaskList = i => {
+  console.log(i);
+
+  if (window.confirm("Are you sure you want to delete this task?")){
 
 
+    
+    const newArg = taskList.filter((item, index)=> index !== i);
+    setTaskList(newArg);
+  }
+};
+// delete the task item from badList
+const handleOnDeleteBadList = i => {
+  console.log(i);
+
+  if (window.confirm("Are you sure you want to delete this task?")){
+
+
+    
+    const newArg = badList.filter((item, index)=> index !== i);
+    setBadList(newArg);
+  }
 };
 
-console.log(taskList);
+// take item form taskList and put in the badList
+const markAsNotToDo = i => {
+  const selectedItem = taskList[i];
+  setBadList([...badList, selectedItem]);
+  const newArg = taskList.filter((item, index)=> index !== i);
+  setTaskList(newArg);
+};
+
+console.log(badList);
+// take item form badList and put in the taskList
+const markAsTask = i => {
+  const selectedItem = badList[i];
+  setTaskList([...taskList, selectedItem]);
+  const newArg = badList.filter((item, index)=> index !== i);
+  setBadList(newArg);
+};
+
+const ttlTaskHr = taskList.reduce((subttl, item)=>subttl + item.hr, 0);
+const ttlBadHours = badList.reduce((acc, curr)=>acc + curr.hr, 0);
 
   return (
     <div class="wrapper">
@@ -34,18 +76,18 @@ console.log(taskList);
              {/* <!-- list area  --> */}
 
              <div class="row">
-               <TaskList taskList={taskList}/>
+               <TaskList taskList={taskList} handleOnDeleteTaskList={handleOnDeleteTaskList} markAsNotToDo={markAsNotToDo}/>
  
-              <BadList/>
+              <BadList badList={badList} handleOnDeleteBadList= {handleOnDeleteBadList} markAsTask={markAsTask} ttlBadHours={ttlBadHours}/>
                  
              </div>
 
              {/* total hours */}
 
-             <TotalHours/>
+             <TotalHours ttlTaskHr={ttlTaskHr + ttlBadHours}/>
 
  
-        </div>
+        </div>;
 
     </div>
   );
