@@ -60,6 +60,7 @@ const markAsTask = i => {
 
 const ttlTaskHr = taskList.reduce((subttl, item)=>subttl + item.hr, 0);
 const ttlBadHours = badList.reduce((acc, curr)=>acc + curr.hr, 0);
+const total = ttlTaskHr + ttlBadHours;
 
   return (
     <div class="wrapper">
@@ -84,7 +85,7 @@ const ttlBadHours = badList.reduce((acc, curr)=>acc + curr.hr, 0);
 
              {/* total hours */}
 
-             <TotalHours ttlTaskHr={ttlTaskHr + ttlBadHours}/>
+             <TotalHours total={total}/>
 
  
         </div>;
