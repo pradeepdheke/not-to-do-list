@@ -63,20 +63,20 @@ const ttlBadHours = badList.reduce((acc, curr)=>acc + curr.hr, 0);
 const total = ttlTaskHr + ttlBadHours;
 
   return (
-    <div class="wrapper">
+    <div className="wrapper">
 
-        <div class="container">
+        <div className="container">
             {/* <!-- top title  --> */}
             <Title/>
 
             {/* <!-- form area  --> */}
-            <Form addNewTask={addNewTask}/>
+            <Form addNewTask={addNewTask} total={total}/>
 
 
 
              {/* <!-- list area  --> */}
 
-             <div class="row">
+             <div className="row">
                <TaskList taskList={taskList} handleOnDeleteTaskList={handleOnDeleteTaskList} markAsNotToDo={markAsNotToDo}/>
  
               <BadList badList={badList} handleOnDeleteBadList= {handleOnDeleteBadList} markAsTask={markAsTask} ttlBadHours={ttlBadHours}/>

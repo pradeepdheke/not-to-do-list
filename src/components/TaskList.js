@@ -12,7 +12,7 @@ console.log(taskList)
            
            <tbody id="task-list">
             {
-                  taskList.map((item, i)=>    <tr>
+                  taskList.map((item, i)=>    <tr key={i}>
                     <td>
                         <input type="checkbox" name="" id=""/>
                         {item.task}

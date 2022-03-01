@@ -41,7 +41,7 @@ export const Form = ({addNewTask, total}) => {
             onSubmit={handleOnSubmit}
             >
                 <div className="col-12">
-                  <label className="visually-hidden" for="inlineFormInputGroupUsername">Your task</label>
+                  <label className="visually-hidden" >Your task</label>
                   <div className="input-group">
                     
                     <input type="text" name="task" 
@@ -53,7 +53,7 @@ export const Form = ({addNewTask, total}) => {
                 </div>
 
                 <div className="col-12">
-                    <label className="visually-hidden" for="inlineFormInputGroupUsername">Hours</label>
+                    <label className="visually-hidden" >Hours</label>
                     <div className="input-group">
                       
                       <input type="number" name="hr" 
