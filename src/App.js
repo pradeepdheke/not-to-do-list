@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './App.css';
 import { Title } from './components/Title';
@@ -6,15 +6,37 @@ import { Form } from './components/Form';
 import { TaskList } from './components/TaskList';
 import { BadList } from './components/BadList';
 import { TotalHours } from './components/TotalHours';
+import { fetchTasks, postTasks } from './helper/axiosHelper';
 
 function App() {
   
   const [taskList, setTaskList] = useState([]);
 
   const [badList, setBadList] = useState([]);
+  const [isPending, setIsPending] = useState(false);
+  const [response, setResponse] = useState({});
+
+  useEffect(()=>{
+
+    const getTasks = async task => {
+      setIsPending(true);
+
+      const {status, result, message} = await fetchTasks();
+      setIsPending(false);
+      
+      result === "error"  && setResponse({status, message});
+      result?.length && setTaskList(result);
+      console.log(result);
+    };
+    getTasks();
+  },[]);
   
-const addNewTask = newTask => {
-  setTaskList([...taskList, newTask]);
+const addNewTask = async task => {
+  setIsPending(true);
+  const result = await postTasks(task);
+  setIsPending(false);
+
+  // setTaskList([...taskList, task]);
 }
 // delete the task item from taskList
 const handleOnDeleteTaskList = i => {
@@ -68,6 +90,23 @@ const total = ttlTaskHr + ttlBadHours;
         <div className="container">
             {/* <!-- top title  --> */}
             <Title/>
+{/* feedback message */}
+
+{isPending &&(
+
+  
+  <div className="d-flex justify-content-center">
+<div className="spinner-border text-primary" role="status">
+  <span className='visually-hidden'>Loading...</span>
+</div>
+
+  </div>
+    )};
+
+    {response?.message && (
+
+      <div className="alert alert-danger">{response.message}</div>
+    )}
 
             {/* <!-- form area  --> */}
             <Form addNewTask={addNewTask} total={total}/>
